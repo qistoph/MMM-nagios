@@ -1,0 +1,25 @@
+{
+  "name": "nagios",
+  "version": "0.0.1",
+  "description": "MagicMirror² module to display nagios statistics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "magicmirror",
+    "nagios"
+  ],
+  "author": "Chris van Marle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qistoph/MMM-nagios/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qistoph/MMM-nagios"
+  },
+  "dependencies": {
+    "http-digest-client": "0.0.3"
+  }
+}
