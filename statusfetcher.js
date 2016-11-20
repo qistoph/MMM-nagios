@@ -39,37 +39,10 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 			return;
 		}
 
-		var serviceStatusTotals = getServiceStatusTotals(data);
-		status = {servicestotals: serviceStatusTotals};
+		status = data;
 
 		self.broadcastStatus();
 		scheduleTimer();
-	}
-
-	var getServiceStatusTotals = function(data) {
-		var statusCounts = {ok: 0, warning: 0, unknown: 0, critical: 0};
-
-		var hostServices = data['services'];
-		Object.keys(hostServices).forEach(function(hostname) {
-			Object.keys(hostServices[hostname]).forEach(function(servicename) {
-				switch(parseInt(hostServices[hostname][servicename].current_state)) {
-					case 0:
-						statusCounts.ok++;
-						break;
-					case 1:
-						statusCounts.warning++;
-						break;
-					case 2:
-						statusCounts.critical++;
-						break;
-					default:
-						statusCounts.unknown++;
-						break;
-				}
-			});
-		});
-
-		return statusCounts;
 	}
 
 	/* scheduleTimer()
