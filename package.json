@@ -20,6 +20,6 @@
     "url": "https://github.com/qistoph/MMM-nagios"
   },
   "dependencies": {
-    "http-digest-client": "0.0.3"
+    "node-rest-client": "^2.0.1"
   }
 }
