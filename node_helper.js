@@ -1,12 +1,9 @@
-var NodeHelper = require('node_helper');
+var NodeHelper = require("node_helper");
 var StatusFetcher = require("./statusfetcher.js");
 
 module.exports = NodeHelper.create({
 	// Override start method.
 	start: function() {
-		var self = this;
-		var events = [];
-
 		this.fetchers = [];
 
 		console.log("Starting node helper for: " + this.name);
@@ -36,9 +33,6 @@ module.exports = NodeHelper.create({
 			fetcher = new StatusFetcher(apiUrl, username, password, reloadInterval);
 
 			fetcher.onReceive(function(fetcher) {
-				//console.log('Broadcast events.');
-				//console.log(fetcher.events());
-
 				self.sendSocketNotification("STATUS_EVENT", {
 					url: fetcher.url(),
 					status: fetcher.status()
@@ -54,7 +48,7 @@ module.exports = NodeHelper.create({
 
 			self.fetchers[apiUrl] = fetcher;
 		} else {
-			console.log('Use existing nagios fetcher for url: ' + apiUrl);
+			console.log("Use existing nagios fetcher for url: " + apiUrl);
 			fetcher = self.fetchers[apiUrl];
 			fetcher.broadcastStatus();
 		}

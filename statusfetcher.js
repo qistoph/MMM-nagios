@@ -1,4 +1,4 @@
-var Client = require('node-rest-client').Client;
+var Client = require("node-rest-client").Client;
 
 var StatusFetcher = function(url, user, pass, reloadInterval) {
 	var self = this;
@@ -11,7 +11,7 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 
 	var opts = {
 		mimetypes: {
-			'json': ['application/json']
+			"json": ["application/json"]
 		}
 	};
 
@@ -21,7 +21,7 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 	}
 
 	var apiClient = new Client(opts);
-	apiClient.registerMethod('getStatus', url, 'GET');
+	apiClient.registerMethod("getStatus", url, "GET");
 
 	/* fetchStatus()
 	 * Initiates status fetch.
@@ -35,7 +35,7 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 
 	var handleApiResponse = function(data, response) {
 		if (data === undefined) {
-			fetchFailedCallback(self, 'Received data empty or invalid.');
+			fetchFailedCallback(self, "Received data empty or invalid.");
 			return;
 		}
 
@@ -49,7 +49,7 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 	 * Schedule the timer for the next update.
 	 */
 	var scheduleTimer = function() {
-		//console.log('Schedule update timer.');
+		//console.log("Schedule update timer.");
 		clearTimeout(reloadTimer);
 		reloadTimer = setTimeout(function() {
 			fetchStatus();
@@ -69,7 +69,7 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 	 * Broadcast the existing trains.
 	 */
 	this.broadcastStatus = function() {
-		trainsReceivedCallback(self);
+		statusReceivedCallback(self);
 	};
 
 	/* onReceive(callback)
@@ -78,7 +78,7 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 	 * argument callback function - The on success callback.
 	 */
 	this.onReceive = function(callback) {
-		trainsReceivedCallback = callback;
+		statusReceivedCallback = callback;
 	};
 
 	/* onError(callback)
@@ -106,15 +106,6 @@ var StatusFetcher = function(url, user, pass, reloadInterval) {
 	 */
 	this.url = function() {
 		return url;
-	};
-
-	/* trains()
-	 * Returns current available trains for this fetcher.
-	 *
-	 * return array - The current available trains for this fetcher.
-	 */
-	this.trains = function() {
-		return trains;
 	};
 
 };
