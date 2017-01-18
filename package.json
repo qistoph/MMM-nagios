@@ -4,14 +4,15 @@
   "description": "MagicMirror² module to display nagios statistics",
   "main": "index.js",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "precommit": "grunt precommit"
   },
   "keywords": [
     "magicmirror",
     "nagios"
   ],
   "pre-commit": [
-    "test"
+    "precommit"
   ],
   "author": "Chris van Marle",
   "license": "ISC",
