@@ -43,44 +43,21 @@ modules: [
 
 The following properties can be configured:
 
-<table width="100%">
-  <thead>
-    <tr>
-      <th>Option</th>
-      <th width="100%">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>statusUrl</code></td>
-      <td>The URL to get the status from. Must be a php-nagios-json page.<br>
-      <br><b>Required</b></td>
-    </tr>
-    <tr>
-      <td><code>username</code></td>
-      <td>HTTP Basic Auth username, if need to access the page.<br>
-      <br><b>Optional</b></td>
-    </tr>
-    <tr>
-      <td><code>password</code></td>
-      <td>HTTP Basic Auth password, should be specified if the username is.<br>
-      <br><b>Optional</b></td>
-    </tr>
-    <tr>
-      <td><code>reloadInterval</code></td>
-      <td>Number of milliseconds between refresh.<br>
-      <br><b>Default value:</b> <code>5 * 60 * 1000</code> (5 minutes)</td>
-    </tr>
-    <tr>
-      <td><code>labels</code></td>
-      <td>Defines the labels for each type of status.<br>
-      <br><b>Default value:</b><br><pre><code>labels: {
+Option           | Description
+---------------- | -----------
+`statusUrl`      | The URL to get the status from. Must be a php-nagios-json page.<br>**Required**
+`username`       | HTTP Basic Auth username, if need to access the page.<br>**Optional**
+`password`       | HTTP Basic Auth password, should be specified if the username is.<br>**Optional**
+`reloadInterval` | Number of milliseconds between refresh.<br>**Default value:** `5 * 60 * 1000` (5 minutes)
+`labels`         | Defines the labels for each type of status.<br>**Default value:** See [Default labels](#default-labels)
+
+### Default labels
+
+````javascript
+labels: {
   'ok': 'Ok',
   'warning': 'Warning',
   'critical': 'Critical',
   'unknown': 'Unknown'
-}</pre></code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+}
+````
