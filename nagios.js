@@ -49,7 +49,6 @@ Module.register("nagios", {
 		}
 
 		this.updateDom();
-		this.show();
 	},
 
 	getStatusSpan: function(counts, descr, key) {
