@@ -32,8 +32,8 @@ modules: [
     header: 'Nagios',
     config: {
       statusUrl: 'https://<YOUR URL>/',
-      user:'Basic auth username',
-      pass: 'Basic auth password'
+      username:'Basic auth username',
+      password: 'Basic auth password'
     }
   }
 ]
