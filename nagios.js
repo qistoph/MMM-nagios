@@ -3,6 +3,7 @@
 Module.register("nagios", {
 	defaults: {
 		reloadInterval: 5 * 60 * 1000,
+		showDetails: true,
 		labels: {
 			"ok": "Ok",
 			"warning": "Warning",
@@ -31,6 +32,19 @@ Module.register("nagios", {
 
 	getScripts: function() {
 		return [];
+	},
+
+	notificationReceived: function(notification, payload, sender) {
+		/*if (sender) {
+			Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
+		} else {
+			Log.log(this.name + " received a system notification: " + notification);
+		}*/
+
+		if(notification === "SHOW_DETAILS") {
+			this.config.showDetails = !!payload;
+			this.updateDom();
+		}
 	},
 
 	// Override socket notification handler.
@@ -103,14 +117,16 @@ Module.register("nagios", {
 		summary.appendChild(this.getStatusSpan(statusTotals, this.config.labels["ok"], "ok"));
 		wrapper.appendChild(summary);
 
-		if (statusTotals["critical"] > 0) {
-			wrapper.appendChild(this.getGroupDiv(this.config.labels["critical"], "critical"));
-		}
-		if (statusTotals["warning"] > 0) {
-			wrapper.appendChild(this.getGroupDiv(this.config.labels["warning"], "warning"));
-		}
-		if (statusTotals["unknown"] > 0) {
-			wrapper.appendChild(this.getGroupDiv(this.config.labels["unknown"], "unknown"));
+		if (this.config.showDetails) {
+			if (statusTotals["critical"] > 0) {
+				wrapper.appendChild(this.getGroupDiv(this.config.labels["critical"], "critical"));
+			}
+			if (statusTotals["warning"] > 0) {
+				wrapper.appendChild(this.getGroupDiv(this.config.labels["warning"], "warning"));
+			}
+			if (statusTotals["unknown"] > 0) {
+				wrapper.appendChild(this.getGroupDiv(this.config.labels["unknown"], "unknown"));
+			}
 		}
 
 		return wrapper;

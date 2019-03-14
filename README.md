@@ -33,7 +33,8 @@ modules: [
     config: {
       statusUrl: 'https://<YOUR URL>/',
       username:'Basic auth username',
-      password: 'Basic auth password'
+      password: 'Basic auth password',
+      showDetails: true
     }
   }
 ]
@@ -48,6 +49,7 @@ Option           | Description
 `statusUrl`      | The URL to get the status from. Must be a php-nagios-json page.<br>**Required**
 `username`       | HTTP Basic Auth username, if need to access the page.<br>**Optional**
 `password`       | HTTP Basic Auth password, should be specified if the username is.<br>**Optional**
+`showDetails`    | Show the service and host for each nagios status (except OK).<br>**Optional**
 `reloadInterval` | Number of milliseconds between refresh.<br>**Default value:** `5 * 60 * 1000` (5 minutes)
 `labels`         | Defines the labels for each type of status.<br>**Default value:** See [Default labels](#default-labels)
 
@@ -61,3 +63,10 @@ labels: {
   'unknown': 'Unknown'
 }
 ````
+
+## Notifications
+This module supports the following notifications:
+
+**SHOW_DETAILS**
+
+Payload is a `boolean` indicating if the details should be shown, just like (`showDetails` in the config).
