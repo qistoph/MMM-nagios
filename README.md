@@ -65,8 +65,9 @@ labels: {
 ````
 
 ## Notifications
+
 This module supports the following notifications:
 
-**SHOW_DETAILS**
-
-Payload is a `boolean` indicating if the details should be shown, just like (`showDetails` in the config).
+Notification   | Description
+-------------- | -----------
+`SHOW_DETAILS` | Payload is a `boolean` indicating if the details should be shown, just like (`showDetails` in the config).
