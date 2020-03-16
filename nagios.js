@@ -4,6 +4,7 @@ Module.register("nagios", {
 	defaults: {
 		reloadInterval: 5 * 60 * 1000,
 		showDetails: true,
+		showHosts: false,
 		labels: {
 			"ok": "Ok",
 			"warning": "Warning",
@@ -79,7 +80,14 @@ Module.register("nagios", {
 		catHeader.innerHTML = title;
 		groupDiv.appendChild(catHeader);
 
-		this.getServiceListWithStatus(this.status, state).forEach(function(service, i) {
+		var statusMethod;
+		if (this.config.showHosts) {
+			statusMethod = this.getHostListWithStatus;
+		} else {
+			statusMethod = this.getServiceListWithStatus;
+		}
+
+		statusMethod(this.status, state).forEach(function(service, i) {
 			var divRow = document.createElement("div");
 			divRow.style = "display: flex; justify-content: space-between";
 
@@ -109,7 +117,12 @@ Module.register("nagios", {
 			return wrapper;
 		}
 
-		var statusTotals = this.getServiceStatusTotals(this.status);
+		var statusTotals;
+		if (this.config.showHosts) {
+			statusTotals = this.getHostStatusTotals(this.status);
+		} else {
+			statusTotals = this.getServiceStatusTotals(this.status);
+		}
 
 		summary.appendChild(this.getStatusSpan(statusTotals, this.config.labels["critical"], "critical"));
 		summary.appendChild(this.getStatusSpan(statusTotals, this.config.labels["warning"], "warning"));
@@ -185,6 +198,44 @@ Module.register("nagios", {
 					break;
 				}
 			});
+		});
+
+		return statusCounts;
+	},
+
+	getHostListWithStatus: function(data, state) {
+		var stateId = state == "ok" ? 0 : state == "warning" ? 1 : state == "critical" ? 2 : 3;
+
+		var ret = [];
+		var hosts = data["hosts"];
+		Object.keys(hosts).forEach(function(hostname) {
+			var currentState = hosts[hostname].current_state;
+			if (currentState == stateId) {
+				ret.push({"host": hostname, "state": currentState});
+			}
+		});
+		return ret;
+	},
+
+	getHostStatusTotals: function(data) {
+		var statusCounts = {ok: 0, warning: 0, unknown: 0, critical: 0};
+
+		var hosts = data["hosts"];
+		Object.keys(hosts).forEach(function(hostname) {
+			switch(parseInt(hosts[hostname].current_state)) {
+			case 0:
+				statusCounts.ok++;
+				break;
+			case 1:
+				statusCounts.warning++;
+				break;
+			case 2:
+				statusCounts.critical++;
+				break;
+			default:
+				statusCounts.unknown++;
+				break;
+			}
 		});
 
 		return statusCounts;
