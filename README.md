@@ -85,3 +85,30 @@ This module supports the following notifications:
 Notification   | Description
 -------------- | -----------
 `SHOW_DETAILS` | Payload is a `boolean` indicating if the details should be shown, just like (`showDetails` in the config).
+
+### Coloring
+
+```css
+.nagios-critical {
+    color: red;
+}
+
+.nagios-warning {
+    color: yellow;
+}
+
+.nagios-unknown {
+    color: orange;
+}
+
+.nagios-ok {
+    color: green;
+}
+
+```
+
+If you would like the numbers to be colored, you can add the above code
+to your `css/custom.css` file. You might need to create that file if it
+doesn't exist.
+
+You can of course also use these CSS classes for differente styling.

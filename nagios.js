@@ -68,7 +68,7 @@ Module.register("nagios", {
 
 	getStatusSpan: function(counts, descr, key) {
 		var span = document.createElement("span");
-		span.innerHTML = descr + ": <span class='bright'>" + counts[key] + "</span> ";
+		span.innerHTML = descr + ": <span class='bright nagios-"+key+"'>" + counts[key] + "</span> ";
 		return span;
 	},
 
