@@ -24,7 +24,7 @@
     "url": "https://github.com/qistoph/MMM-nagios"
   },
   "dependencies": {
-    "node-rest-client": "^2.0.1"
+    "node-rest-client": "^3.1.1"
   },
   "devDependencies": {
     "grunt": "latest",
